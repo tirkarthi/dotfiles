@@ -1,0 +1,6 @@
+wget http://cx4a.org/pub/auto-complete/auto-complete-1.2.tar.bz2
+tar xjf auto-complete-1.2.tar.bz
+tar xjf auto-complete-1.2.tar.bz2
+help
+vim
+clear
