@@ -1,0 +1,1 @@
+("~/" "~/stuff/redis/" "/var/www/flask_tut/templates/")

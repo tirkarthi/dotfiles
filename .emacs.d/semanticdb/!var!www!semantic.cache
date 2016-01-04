@@ -1,0 +1,71 @@
+;; Object www/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "www/"
+  :tables (list 
+   (semanticdb-table "index.html"
+    :major-mode 'html-mode
+    :tags 
+        '( ("var sock = null;
+      var wsuri = "ws://127.0.0.1:6767/web_socket";
+
+      window.onload = function() {
+
+      console.log("onload");
+
+      sock = new WebSocket(wsuri);
+
+      sock.onopen = function() {
+      console.log("connected to " + wsuri);
+      }
+
+      sock.onclose = function(e) {
+      console.log("connection closed (" + e.code + ")");
+      }
+
+      sock.onmessage = function(e) {
+      console.log("message received: " + e.data);
+      }
+      };
+
+      function send() {
+      var msg = document.getElementById('message').value;
+      sock.send(msg);
+      };" section nil nil [26 37])
+            ("var sock = null;
+      var wsuri = "ws://127.0.0.1:6767/web_socket";
+
+      window.onload = function() {
+
+      console.log("onload");
+
+      sock = new WebSocket(wsuri);
+
+      sock.onopen = function() {
+      console.log("connected to " + wsuri);
+      }
+
+      sock.onclose = function(e) {
+      console.log("connection closed (" + e.code + ")");
+      }
+
+      sock.onmessage = function(e) {
+      console.log("message received: " + e.data);
+      }
+      };
+
+      function send() {
+      var msg = document.getElementById('message').value;
+      sock.send(msg);
+      };" section (:members 
+              ( ("WebSocket Echo Test" section nil nil [670 885]))              ) nil [37 885]))          
+    :file "index.html"
+    :pointmax 885
+    :fsize 890
+    :lastmodtime '(21856 6180)
+    :unmatched-syntax 'nil
+    )
+   )
+  :file "!var!www!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.0"
+  )

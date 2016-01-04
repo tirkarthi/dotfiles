@@ -4,3 +4,24 @@ tar xjf auto-complete-1.2.tar.bz2
 help
 vim
 clear
+ls
+clear
+c
+c
+clear
+D
+d
+cdd
+source ../.bashrc
+cdd
+c
+clear
+cd ..
+pwd
+D
+pwd
+clear
+exit
+cd clojure/
+ls
+java -cp clojure-1.7.0-master-20150220.180325-29.jar clojure.main

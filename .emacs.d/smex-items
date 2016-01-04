@@ -1,0 +1,16 @@
+
+;; ----- smex-history -----
+(
+ undo-tree-visualize
+ ag
+ cd
+ w3
+ 5x5
+ ack
+ arp
+)
+
+;; ----- smex-data -----
+(
+ (undo-tree-visualize . 1)
+)

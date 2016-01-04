@@ -3,18 +3,32 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(cperl-electric-keywords t)
+ '(cperl-hairy t)
+ '(cua-global-mark-cursor-color "#2aa198")
+ '(cua-normal-cursor-color "#839496")
+ '(cua-overwrite-cursor-color "#b58900")
+ '(cua-read-only-cursor-color "#859900")
+ '(custom-safe-themes
+   (quote
+    ("e8ec37b1c621080e9aa796b1e1126566e4b4b2f59763a57e82147af104c6a6ef" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "05c3bc4eb1219953a4f182e10de1f7466d28987f48d647c01f1f0037ff35ab9a" "a772eafba4eda0ed57a5d651a96804487a1dacbfbf8658084bfe84546a7c7008" default)))
+ '(fci-rule-color "#49483E")
  '(inhibit-startup-screen t)
  '(initial-frame-alist (quote ((fullscreen . maximized))))
+ '(magit-diff-use-overlays nil)
  '(org-agenda-files (quote ("~/OrgTutorial.org")))
- '(send-mail-function (quote smtpmail-send-it)))
+ '(send-mail-function (quote smtpmail-send-it))
+ '(vc-annotate-background nil)
+ '(weechat-color-list
+   (unspecified "#000000" "#49483E" "#A20C41" "#F92672" "#67930F" "#A6E22E" "#968B26" "#E6DB74" "#21889B" "#66D9EF" "#A41F99" "#FD5FF0" "#349B8D" "#A1EFE4" "#F8F8F2" "#F8F8F0")))
+
+(add-to-list 'load-path (expand-file-name "~/.emacs.d") t)
+
+(setq-default indent-tabs-mode nil)
+
+(require 'cl-lib)
 
 ;; ========== Enable Line and Column Numbering ==========
-
-;; Show line-number in the mode line
-(global-linum-mode 1)
-
-;; Show column-number in the mode line
-(column-number-mode 1)
 
 ;; ========== Line by line scrolling ==========
 
@@ -27,20 +41,19 @@
 
 ;; ===== Set the highlight current line minor mode =====
 
-;; In every buffer, the line which contains the cursor will be fully
-;; highlighted
+;; Show line-number in the mode line
+(global-linum-mode 1)
+
+;; Show column-number in the mode line
+(column-number-mode 1)
+
+;; In every buffer, the line which contains the cursor will be fully highlighted
 
 (global-hl-line-mode -1)
 
 (tool-bar-mode -1)
 
-(add-to-list 'load-path "~/.emacs.d")
-
-(require 'color-theme)
-
-(color-theme-initialize)
-
-(color-theme-dark-laptop)
+(blink-cursor-mode 0)
 
 (menu-bar-mode -1)
 
@@ -50,10 +63,18 @@
 
 (electric-pair-mode 1)
 
-(add-to-list 'load-path "~/.emacs.d/")
-
 ;;; Always do syntax highlighting
 (global-font-lock-mode 1)
+
+(global-auto-revert-mode)
+
+(global-visual-line-mode)
+
+(transient-mark-mode 1)
+
+(desktop-save-mode 1)
+
+(scroll-bar-mode -1)
 
 ;;; Also highlight parens
 (setq show-paren-delay 0
@@ -65,51 +86,16 @@
 
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
-(ido-mode 1) 
+(ido-mode 1)
 (windmove-default-keybindings)
 
 ;; (require 'sr-speedbar)
 (set-default-font "Monospace 11")
 
-(add-to-list 'load-path "/home/xtreak/.emacs.d")
-(require 'auto-complete-config)
-(ac-config-default)
+;; (require 'auto-complete-config)
+;; (ac-config-default)
 
-(require 'sr-speedbar)
-
-;;; prelude-global-keybindings.el --- Emacs Prelude: some useful keybindings.
-;;
-;; Copyright © 2011-2013 Bozhidar Batsov
-;;
-;; Author: Bozhidar Batsov <bozhidar@batsov.com>
-;; URL: https://github.com/bbatsov/prelude
-;; Version: 1.0.0
-;; Keywords: convenience
-
-;; This file is not part of GNU Emacs.
-
-;;; Commentary:
-
-;; Lots of useful keybindings.
-
-;;; License:
-
-;; This program is free software; you can redistribute it and/or
-;; modify it under the terms of the GNU General Public License
-;; as published by the Free Software Foundation; either version 3
-;; of the License, or (at your option) any later version.
-;;
-;; This program is distributed in the hope that it will be useful,
-;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-;; GNU General Public License for more details.
-;;
-;; You should have received a copy of the GNU General Public License
-;; along with GNU Emacs; see the file COPYING.  If not, write to the
-;; Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-;; Boston, MA 02110-1301, USA.
-
-;;; Code:
+;; (require 'sr-speedbar)
 
 ;; Align your code in a pretty way.
 (global-set-key (kbd "C-x \\") 'align-regexp)
@@ -125,10 +111,6 @@
 
 ;; Indentation help
 (global-set-key (kbd "C-^") 'prelude-top-join-line)
-
-;; Start proced in a similar manner to dired
-(unless (eq system-type 'darwin)
-    (global-set-key (kbd "C-x p") 'proced))
 
 ;; Start eshell or switch to it if it's active.
 (global-set-key (kbd "C-x m") 'eshell)
@@ -165,8 +147,6 @@
                                         (kill-line 0)
                                         (indent-according-to-mode)))
 
-(global-set-key [remap kill-whole-line] 'prelude-kill-whole-line)
-
 ;; Activate occur easily inside isearch
 (define-key isearch-mode-map (kbd "C-o")
   (lambda () (interactive)
@@ -190,6 +170,7 @@
 (global-set-key (kbd "C-x g") 'magit-status)
 
 (global-set-key (kbd "C-=") 'er/expand-region)
+(global-set-key (kbd "C--") 'er/contract-region)
 
 (global-set-key (kbd "C-c j") 'ace-jump-mode)
 (global-set-key (kbd "s-.") 'ace-jump-mode)
@@ -201,6 +182,79 @@
 
 ;;; prelude-global-keybindings.el ends here
 
-(require 'ace-jump)
+(autoload
+  'ace-jump-mode
+  "ace-jump-mode"
+  "Emacs quick move minor mode"
+  t)
 
-(require 'rainbow-delimiters)
+(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+
+
+(when (>= emacs-major-version 24)
+  (require 'package)
+  (package-initialize)
+  (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
+  )
+
+
+(defun iswitchb-local-keys ()
+      (mapc (lambda (K) 
+	      (let* ((key (car K)) (fun (cdr K)))
+    	        (define-key iswitchb-mode-map (edmacro-parse-keys key) fun)))
+	    '(("<right>" . iswitchb-next-match)
+	      ("<left>"  . iswitchb-prev-match)
+	      ("<up>"    . ignore             )
+	      ("<down>"  . ignore             ))))
+
+(add-hook 'iswitchb-define-mode-map-hook 'iswitchb-local-keys)
+
+(setq-default cursor-type 'bar)
+
+;; Key chord mode definitions
+
+(key-chord-mode 1)
+
+(key-chord-define-global "gg" 'execute-extended-command)
+
+;; Key chord bindings end here
+
+(global-auto-revert-mode)
+
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+(global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
+(global-set-key (kbd "M-k") 'kill-this-buffer)
+
+;; (add-to-list 'load-path "~/.emacs.d/elpa/yasnippet-0.8.0/")
+;; (require 'yasnippet)
+;; (yas-global-mode 1)
+
+(global-set-key (kbd "M-n") 'next-buffer)
+(global-set-key (kbd "M-p") 'previous-buffer)
+(put 'upcase-region 'disabled nil)
+
+;; (add-to-list 'ac-sources 'ac-source-jedi-direct)
+
+(require 'jedi)
+(add-hook 'python-mode-hook 'jedi-setup)
+(setq jedi:setup-keys t)
+(setq jedi:complete-on-dot t)
+
+(load-theme 'monokai)
+
+;; (require 'clojure-mode)
+(put 'dired-find-alternate-file 'disabled nil)
+
+(setq-default linum-format "%d  ")
+
+(server-start)
+
+(defun jedi-mode-key-bindings ()
+  (local-set-key (kbd "C-;") 'jedi:goto-definition)
+  (local-set-key (kbd "C-'") 'jedi:goto-pop-marker)
+  (local-set-key (kbd "C-,") 'jedi:show-doc)
+  )
+
+(add-hook 'jedi-mode-hook 'jedi-mode-key-bindings)
